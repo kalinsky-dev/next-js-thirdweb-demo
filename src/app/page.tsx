@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { ConnectButton } from "thirdweb/react";
+import { ClaimButton, ConnectButton } from "thirdweb/react";
 import thirdwebIcon from "@public/thirdweb.svg";
 import { client } from "./client";
+import { sepolia } from "thirdweb/chains";
 
 export default function Home() {
   return (
@@ -19,6 +20,20 @@ export default function Home() {
               url: "https://example.com",
             }}
           />
+          <ClaimButton
+            contractAddress="0x5C6ea66138465AF1aFC63e7cC55b4856B2E9dE44"
+            chain={sepolia}
+            client={client}
+            claimParams={{
+              type: "ERC721",
+              quantity: BigInt(1),
+            }}
+            onError={(error) => {
+              console.error("Error claiming NFT:", error);
+            }}
+          >
+            Claim now
+          </ClaimButton>
         </div>
 
         <ThirdwebResources />
